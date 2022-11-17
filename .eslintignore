@@ -1,5 +1,0 @@
-lib/
-lib-esm/
-test/
-jest.config.ts
-webpack.*.ts
