@@ -1,10 +1,10 @@
-# react-form
+# react-button
 
-A react form hook for react and native.
+A basic button component that supports react and native react.
 
 ## Installation
 
-> yarn add @bearei/react-form --save
+> yarn add @bearei/react-button --save
 
 ## Use
 
