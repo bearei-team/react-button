@@ -1512,9 +1512,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bearei/react-form@workspace:.":
+"@bearei/react-button@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@bearei/react-form@workspace:."
+  resolution: "@bearei/react-button@workspace:."
   dependencies:
     "@babel/core": ^7.20.2
     "@babel/preset-env": ^7.20.2

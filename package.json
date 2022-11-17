@@ -1,5 +1,5 @@
 {
-  "name": "@bearei/react-form",
+  "name": "@bearei/react-button",
   "version": "0.0.1",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",

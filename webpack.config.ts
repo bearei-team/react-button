@@ -9,12 +9,7 @@ const config: webpack.Configuration = {
   mode: 'production',
   entry: {
     index: path.resolve(__dirname, './src/index.ts'),
-    Form: path.resolve(__dirname, './src/components/Form.tsx'),
-    FormItem: path.resolve(__dirname, './src/components/FormItem.tsx'),
-    formInstance: path.resolve(__dirname, './src/hooks/formInstance.ts'),
-    useForm: path.resolve(__dirname, './src/hooks/useForm.tsx'),
-    useFormContext: path.resolve(__dirname, './src/hooks/useFormContext.tsx'),
-    validate: path.resolve(__dirname, './src/utils/validate.ts'),
+    Button: path.resolve(__dirname, './src/components/Button.tsx'),
   },
   output: {
     path: path.resolve(__dirname, './lib'),
