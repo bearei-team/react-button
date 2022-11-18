@@ -1,8 +1,9 @@
 {
   "name": "@bearei/react-button",
-  "version": "0.0.1",
-  "main": "lib/index.js",
-  "module": "lib-esm/index.js",
+  "version": "0.0.2",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "module": "./lib-esm/index.js",
   "author": "bearei <bear_ei@outlook.com>",
   "description": "A basic button component that supports react and native react.",
   "license": "MIT",
@@ -31,6 +32,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "@types/glob": "^8.0.0",
     "@types/jest": "^29.2.2",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
@@ -48,6 +50,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "glob": "^8.0.3",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
     "prettier": "^2.7.1",
@@ -74,14 +77,15 @@
     "lib-esm"
   ],
   "scripts": {
-    "build": "yarn clean && yarn build:cjs && yarn build:esm",
-    "build:esm": "cross-env TS_NODE_PROJECT=\"tsconfig.esm.json\" webpack --config webpack.config.esm.ts --progress",
-    "build:cjs": "cross-env TS_NODE_PROJECT=\"tsconfig.cjs.json\" webpack --config webpack.config.cjs.ts --progress",
+    "build": "yarn clean && cross-env MODE=\"production\" yarn build:cjs && cross-env MODE=\"production\" yarn build:esm",
+    "build:dev": "yarn clean && cross-env MODE=\"development\" yarn build:cjs && cross-env MODE=\"development\" yarn build:esm",
+    "build:esm": "cross-env TS_NODE_PROJECT=\"tsconfig.esm.json\" LIBRARY=\"module\"  webpack --progress",
+    "build:cjs": "cross-env TS_NODE_PROJECT=\"tsconfig.cjs.json\" LIBRARY=\"commonjs\" webpack --progress",
     "clean": "shx rm -rf build lib-esm lib",
     "test": "jest --watchAll --detectOpenHandles",
     "coverage": "yarn test --coverage",
-    "lint": "eslint '**/*.{ts,tsx}'",
-    "fix": "eslint --fix '**/*.{ts,tsx}'"
+    "lint": "eslint . --ext .jsx,.ts,.tsx",
+    "fix": "yarn lint --fix"
   },
   "engines": {
     "node": ">=16.0.0"

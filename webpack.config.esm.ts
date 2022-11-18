@@ -1,9 +1,7 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
-import webpackConfig from './webpack.config';
 
 const config: webpack.Configuration = {
-  ...webpackConfig,
   output: {
     path: path.resolve(__dirname, './lib-esm'),
     filename: '[name].js',
@@ -17,6 +15,9 @@ const config: webpack.Configuration = {
     outputModule: true,
   },
   externalsType: 'module',
+  externals: {
+    react: 'react',
+  },
 };
 
 export default config;
