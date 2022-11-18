@@ -81,7 +81,7 @@
     "build:dev": "yarn clean && cross-env MODE=\"development\" yarn build:cjs && cross-env MODE=\"development\" yarn build:esm",
     "build:esm": "cross-env TS_NODE_PROJECT=\"tsconfig.esm.json\" LIBRARY=\"module\"  webpack --progress",
     "build:cjs": "cross-env TS_NODE_PROJECT=\"tsconfig.cjs.json\" LIBRARY=\"commonjs\" webpack --progress",
-    "clean": "shx rm -rf build lib-esm lib",
+    "clean": "shx rm -rf lib-esm lib",
     "test": "jest --watchAll --detectOpenHandles",
     "coverage": "yarn test --coverage",
     "lint": "eslint . --ext .jsx,.ts,.tsx",
