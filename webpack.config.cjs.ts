@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
 
-const config: webpack.Configuration = {
+export const config: webpack.Configuration = {
   output: {
     path: path.resolve(__dirname, './lib'),
     filename: '[name].js',
@@ -14,4 +14,4 @@ const config: webpack.Configuration = {
   },
 };
 
-export default config;
+
