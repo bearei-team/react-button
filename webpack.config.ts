@@ -2,8 +2,8 @@ import TerserPlugin from 'terser-webpack-plugin';
 import * as path from 'path';
 import * as webpack from 'webpack';
 import * as glob from 'glob';
-import webpackCJSConfig from './webpack.config.cjs';
-import webpackESMConfig from './webpack.config.esm';
+import {config as webpackCJSConfig} from './webpack.config.cjs';
+import {config as webpackESMConfig} from './webpack.config.esm';
 // in case you run into any typescript error when configuring `devServer`
 import 'webpack-dev-server';
 

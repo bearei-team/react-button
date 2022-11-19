@@ -1,6 +1,6 @@
 {
   "name": "@bearei/react-button",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "module": "./lib-esm/index.js",
@@ -22,6 +22,7 @@
     "url": "https://github.com/bear-ei/react-button/issues"
   },
   "dependencies": {
+    "@bearei/react-util": "^0.0.3",
     "react": "^18.2.0"
   },
   "devDependencies": {
@@ -37,7 +38,6 @@
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
-    "@types/react-native": "^0.70.6",
     "@types/testing-library__jest-dom": "^5.14.5",
     "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
