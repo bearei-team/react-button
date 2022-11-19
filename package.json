@@ -1,6 +1,6 @@
 {
   "name": "@bearei/react-button",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "module": "./lib-esm/index.js",
@@ -22,7 +22,7 @@
     "url": "https://github.com/bear-ei/react-button/issues"
   },
   "dependencies": {
-    "@bearei/react-util": "^0.0.3",
+    "@bearei/react-util": "^0.0.5",
     "react": "^18.2.0"
   },
   "devDependencies": {
@@ -85,7 +85,8 @@
     "test": "jest --watchAll --detectOpenHandles",
     "coverage": "yarn test --coverage",
     "lint": "eslint . --ext .jsx,.ts,.tsx",
-    "fix": "yarn lint --fix"
+    "fix": "yarn lint --fix",
+    "publish": "yarn build && yarn npm publish --access public"
   },
   "engines": {
     "node": ">=16.0.0"

@@ -17,5 +17,6 @@ export const config: webpack.Configuration = {
   externalsType: 'module',
   externals: {
     react: 'react',
+    '@bearei/react-util': '@bearei/react-util',
   },
 };
