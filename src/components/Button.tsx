@@ -2,41 +2,37 @@ import * as React from 'react';
 import {getPlatformEvent, HandleEvent} from '@bearei/react-util';
 
 /**
- * 按钮 Props
+ * Button props.
  */
 export interface ButtonProps {
   /**
-   * HTML Button 类型 -- 只在浏览器环境中生效
+   * HTML Button type-only works in a browser environment.
    */
   type?: 'button' | 'submit' | 'reset';
 
   /**
-   * 是否禁用按钮
+   * Whether to disable the button.
    */
   disabled?: boolean;
 
   /**
-   * 是否在加载状态
+   * The button is loaded or not.
    */
   loading?: boolean;
-
-  /**
-   * 按钮子级
-   */
   children?: JSX.Element;
 
   /**
-   * 监听点击
+   * Listening for clicks.
    */
   onClick?: (e?: HandleEvent) => void;
 
   /**
-   * 监听移动端按压
+   * Listen for mobile compressions.
    */
   onTouchEnd?: (e?: HandleEvent) => void;
 
   /**
-   * 监听RN按压
+   * Listen for native press events.
    */
   onPress?: (e?: HandleEvent) => void;
 }
