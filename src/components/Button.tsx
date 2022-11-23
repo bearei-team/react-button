@@ -3,24 +3,8 @@ import {useId} from 'react';
 import {GestureResponderEvent, TouchableHighlightProps} from 'react-native';
 import {handleEvent} from '@bearei/react-util/lib/event';
 
-export type ButtonClickEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;
-export type ButtonTouchEvent = React.TouchEvent<HTMLButtonElement>;
-export type ButtonPressEvent = GestureResponderEvent;
-export type ButtonChildrenProps = ButtonOmitProps;
-export type ButtonOmitProps = Omit<ButtonProps, 'renderContainer' | 'renderChildren'>;
-
 /**
- * Button container props.
- */
-export interface ButtonContainerProps extends ButtonOmitProps {
-  /**
-   * The unique ID of the text box component.
-   */
-  id: string;
-}
-
-/**
- * Button props.
+ * Button props
  */
 export interface ButtonProps
   extends Omit<
@@ -29,63 +13,106 @@ export interface ButtonProps
     'onClick' | 'onTouchEnd' | 'onPress'
   > {
   /**
-   * Whether to disable the button.
+   * Set button icon component
+   */
+  icon?: React.ReactNode;
+
+  /**
+   * Whether or not to disable the button
    */
   disabled?: boolean;
 
   /**
-   * The button is loading.
+   * Whether the button is loading
    */
   loading?: boolean;
 
   /**
-   * The text displayed by the button.
+   * Button to display text
    */
-  title?: string;
+  text?: string;
 
   /**
-   *  Render button container.
+   * Set the button size
+   */
+  size?: 'default' | 'small' | 'large';
+
+  /**
+   * Set the button shape
+   */
+  shape?: 'default' | 'circle' | 'round';
+
+  /**
+   * Render the button icon
+   */
+  renderIcon?: (props: ButtonMainProps, element?: React.ReactNode) => React.ReactNode;
+
+  /**
+   * Render the button main
+   */
+  renderMain?: (
+    props: ButtonMainProps,
+  ) =>
+    | React.ReactElement<TouchableHighlightProps>
+    | React.ReactElement<
+        React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+      >;
+
+  /**
+   * Render the button container
    */
   renderContainer?: (props: ButtonContainerProps, element?: React.ReactNode) => React.ReactNode;
 
   /**
-   * Render button children.
-   */
-  renderChildren?: (
-    props: ButtonChildrenProps,
-  ) =>
-    | React.ReactElement<TouchableHighlightProps>
-    | React.ReactElement<
-        React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
-      >;
-
-  /**
-   * The handler that PC browser users call when they click this button.
+   * A callback when a button is clicked
    */
   onClick?: (e: ButtonClickEvent) => void;
 
   /**
-   * The handler that the mobile browser user calls when the button is clicked.
+   * A callback for pressing a button
    */
   onTouchEnd?: (e: ButtonTouchEvent) => void;
 
   /**
-   * React-native the handler that the user calls when the button is clicked.
+   * A callback for pressing a button -- react native
    */
   onPress?: (e: ButtonPressEvent) => void;
 }
 
+export interface ButtonChildrenProps
+  extends Omit<ButtonProps, 'renderContainer' | 'renderMain' | 'renderIcon' | 'ref'> {
+  /**
+   * Unique ID of card component
+   */
+  id: string;
+
+  /**
+   * Used to handle some common default events
+   */
+  handleEvent: typeof handleEvent;
+}
+
+export type ButtonClickEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;
+export type ButtonTouchEvent = React.TouchEvent<HTMLButtonElement>;
+export type ButtonPressEvent = GestureResponderEvent;
+export type ButtonIconProps = ButtonChildrenProps;
+export type ButtonMainProps = ButtonChildrenProps;
+export type ButtonContainerProps = ButtonChildrenProps;
+
 const Button: React.FC<ButtonProps> = ({
   loading,
   disabled,
+  icon,
   onClick,
   onPress,
   onTouchEnd,
+  renderIcon,
+  renderMain,
   renderContainer,
-  renderChildren,
   ...args
 }) => {
   const id = useId();
+  const childrenProps = {...args, id, handleEvent};
 
   function handleResponse<T>(callback: (e: T) => void) {
     const response = !disabled && !loading;
@@ -97,10 +124,12 @@ const Button: React.FC<ButtonProps> = ({
   const handleTouchEnd = handleResponse((e: ButtonTouchEvent) => onTouchEnd?.(e));
   const handPress = handleResponse((e: ButtonPressEvent) => onPress?.(e));
 
-  const childrenElement = (
+  const iconElement = <>{icon && renderIcon?.(childrenProps, icon)}</>;
+  const mainElement = (
     <>
-      {renderChildren?.({
-        ...args,
+      {iconElement}
+      {renderMain?.({
+        ...childrenProps,
         loading,
         disabled,
         ...(onClick ? {onClick: handleEvent(handleClick)} : undefined),
@@ -111,9 +140,9 @@ const Button: React.FC<ButtonProps> = ({
   );
 
   const containerElement = renderContainer ? (
-    renderContainer?.({...args, id}, childrenElement)
+    renderContainer?.(childrenProps, mainElement)
   ) : (
-    <>{childrenElement}</>
+    <>{mainElement}</>
   );
 
   return <>{containerElement}</>;
