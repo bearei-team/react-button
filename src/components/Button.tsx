@@ -35,17 +35,17 @@ export interface ButtonProps
   /**
    * Set the button size
    */
-  size?: 'default' | 'small' | 'large';
+  size?: 'small' | 'medium' | 'large';
 
   /**
    * Set the button shape
    */
-  shape?: 'default' | 'circle' | 'round';
+  shape?: 'square' | 'circle' | 'round';
 
   /**
    * Render the button icon
    */
-  renderIcon?: (props: ButtonMainProps, element?: React.ReactNode) => React.ReactNode;
+  renderIcon?: (props: ButtonIconProps, element?: React.ReactNode) => React.ReactNode;
 
   /**
    * Render the button main
@@ -79,8 +79,11 @@ export interface ButtonProps
   onPress?: (e: ButtonPressEvent) => void;
 }
 
+/**
+ * Button children props
+ */
 export interface ButtonChildrenProps
-  extends Omit<ButtonProps, 'renderContainer' | 'renderMain' | 'renderIcon' | 'ref'> {
+  extends Omit<ButtonProps, 'renderContainer' | 'renderMain' | 'renderIcon' | 'icon' | 'ref'> {
   /**
    * Unique ID of card component
    */
@@ -96,13 +99,14 @@ export type ButtonClickEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;
 export type ButtonTouchEvent = React.TouchEvent<HTMLButtonElement>;
 export type ButtonPressEvent = GestureResponderEvent;
 export type ButtonIconProps = ButtonChildrenProps;
-export type ButtonMainProps = ButtonChildrenProps;
+export type ButtonMainProps = Pick<ButtonProps, 'ref'> & ButtonChildrenProps;
 export type ButtonContainerProps = ButtonChildrenProps;
 
 const Button: React.FC<ButtonProps> = ({
+  ref,
+  icon,
   loading,
   disabled,
-  icon,
   onClick,
   onPress,
   onTouchEnd,
@@ -112,7 +116,7 @@ const Button: React.FC<ButtonProps> = ({
   ...args
 }) => {
   const id = useId();
-  const childrenProps = {...args, id, handleEvent};
+  const childrenProps = {...args, loading, disabled, id, handleEvent};
 
   function handleResponse<T>(callback: (e: T) => void) {
     const response = !disabled && !loading;
@@ -123,13 +127,13 @@ const Button: React.FC<ButtonProps> = ({
   const handleClick = handleResponse((e: ButtonClickEvent) => onClick?.(e));
   const handleTouchEnd = handleResponse((e: ButtonTouchEvent) => onTouchEnd?.(e));
   const handPress = handleResponse((e: ButtonPressEvent) => onPress?.(e));
-
   const iconElement = <>{icon && renderIcon?.(childrenProps, icon)}</>;
   const mainElement = (
     <>
       {iconElement}
       {renderMain?.({
         ...childrenProps,
+        ref,
         loading,
         disabled,
         ...(onClick ? {onClick: handleEvent(handleClick)} : undefined),
@@ -139,10 +143,8 @@ const Button: React.FC<ButtonProps> = ({
     </>
   );
 
-  const containerElement = renderContainer ? (
-    renderContainer?.(childrenProps, mainElement)
-  ) : (
-    <>{mainElement}</>
+  const containerElement = (
+    <>{renderContainer ? renderContainer?.(childrenProps, mainElement) : mainElement}</>
   );
 
   return <>{containerElement}</>;

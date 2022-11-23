@@ -11,7 +11,7 @@ describe('test/components/Button.test.ts', () => {
         text="button"
         icon={<i>"icon"</i>}
         renderIcon={(_props, element) => <i data-cy="icon">{element}</i>}
-        renderMain={({text, handleEvent, ...props}) => (
+        renderMain={({text, handleEvent, loading, ...props}) => (
           <button {...props} data-cy="button" type="reset">
             {text}
           </button>
@@ -37,7 +37,7 @@ describe('test/components/Button.test.ts', () => {
     const {getByDataCy} = render(
       <Button
         onClick={e => (eventType = e?.type)}
-        renderMain={({handleEvent, ...props}) => (
+        renderMain={({handleEvent, loading, ...props}) => (
           <button {...props} data-cy="button" type="reset">
             "button"
           </button>
@@ -56,7 +56,26 @@ describe('test/components/Button.test.ts', () => {
       <Button
         onClick={e => (eventType = e?.type)}
         disabled
-        renderMain={({handleEvent, ...props}) => (
+        renderMain={({handleEvent, loading, ...props}) => (
+          <button {...props} data-cy="button" type="reset">
+            "button"
+          </button>
+        )}
+      />,
+    );
+
+    getByDataCy('button');
+    expect(eventType).toEqual(undefined);
+  });
+
+  test('It should be the button loading', async () => {
+    let eventType!: string | undefined;
+
+    const {getByDataCy} = render(
+      <Button
+        onClick={e => (eventType = e?.type)}
+        loading
+        renderMain={({handleEvent, loading, ...props}) => (
           <button {...props} data-cy="button" type="reset">
             "button"
           </button>
