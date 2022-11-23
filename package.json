@@ -1,6 +1,6 @@
 {
   "name": "@bearei/react-button",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "module": "./lib-esm/index.js",
@@ -16,10 +16,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/bear-ei/react-button"
+    "url": "https://github.com/bearei-team/react-button"
   },
   "bugs": {
-    "url": "https://github.com/bear-ei/react-button/issues"
+    "url": "https://github.com/bearei-team/react-button/issues"
   },
   "dependencies": {
     "@bearei/react-util": "^0.0.12",

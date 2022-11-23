@@ -8,15 +8,18 @@ describe('test/components/Button.test.ts', () => {
   test('It should be a render button', async () => {
     const {getByDataCy} = render(
       <Button
+        text="button"
+        icon={<i>"icon"</i>}
+        renderIcon={(_props, element) => <i data-cy="icon">{element}</i>}
+        renderMain={({text, handleEvent, ...props}) => (
+          <button {...props} data-cy="button" type="reset">
+            {text}
+          </button>
+        )}
         renderContainer={({id}, element) => (
-          <div data-cy="container" id={id} tabIndex={1}>
+          <div data-cy="container" data-id={id} tabIndex={1}>
             {element}
           </div>
-        )}
-        renderChildren={props => (
-          <button {...props} data-cy="button" type="reset">
-            "button"
-          </button>
         )}
       />,
     );
@@ -24,6 +27,7 @@ describe('test/components/Button.test.ts', () => {
     expect(getByDataCy('container')).toHaveAttribute('tabIndex');
     expect(getByDataCy('button')).toHaveAttribute('type');
     expect(getByDataCy('button')).toHaveTextContent('button');
+    expect(getByDataCy('icon')).toHaveTextContent('icon');
   });
 
   test('It should be a button click', async () => {
@@ -33,15 +37,15 @@ describe('test/components/Button.test.ts', () => {
     const {getByDataCy} = render(
       <Button
         onClick={e => (eventType = e?.type)}
-        renderChildren={props => (
-          <button {...props} data-cy="button-1" type="reset">
+        renderMain={({handleEvent, ...props}) => (
+          <button {...props} data-cy="button" type="reset">
             "button"
           </button>
         )}
       />,
     );
 
-    await user.click(getByDataCy('button-1'));
+    await user.click(getByDataCy('button'));
     expect(eventType).toEqual('click');
   });
 
@@ -50,20 +54,17 @@ describe('test/components/Button.test.ts', () => {
 
     const {getByDataCy} = render(
       <Button
-        onClick={e => {
-          console.info(e);
-          eventType = e?.type;
-        }}
+        onClick={e => (eventType = e?.type)}
         disabled
-        renderChildren={props => (
-          <button {...props} data-cy="button-1" type="reset">
+        renderMain={({handleEvent, ...props}) => (
+          <button {...props} data-cy="button" type="reset">
             "button"
           </button>
         )}
       />,
     );
 
-    getByDataCy('button-1');
+    getByDataCy('button');
     expect(eventType).toEqual(undefined);
   });
 });

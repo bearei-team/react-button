@@ -13,20 +13,23 @@ import React from 'React';
 import ReactDOM from 'react-dom';
 import Button from '@bearei/react-button';
 
-const Button = (
+const ButtonComponent = (
   <Button
+    text="button"
+    icon={<i>"icon"</i>}
+    renderIcon={(_props, element) => <i data-cy="icon">{element}</i>}
+    renderMain={({text, handleEvent, ...props}) => (
+      <button {...props} data-cy="button" type="reset">
+        {text}
+      </button>
+    )}
     renderContainer={({id}, element) => (
-      <div data-cy="container" id={id} tabIndex={1}>
+      <div data-cy="container" data-id={id} tabIndex={1}>
         {element}
       </div>
-    )}
-    renderChildren={props => (
-      <button {...props} data-cy="button" type="reset">
-        "button"
-      </button>
     )}
   />
 );
 
-ReactDOM.render(Button, container);
+ReactDOM.render(ButtonComponent, container);
 ```
