@@ -141,15 +141,15 @@ function Button<T>({
   const id = useId();
   const childrenProps = {...props, loading, disabled, id, handleEvent};
 
-  function handleResponse<E>(callback: (e: E) => void) {
+  function handleCallback<E>(callback: (e: E) => void) {
     const response = !disabled && !loading;
 
     return (e: E) => response && callback(e);
   }
 
-  const handleClick = handleResponse((e: ButtonClickEvent) => onClick?.(e));
-  const handleTouchEnd = handleResponse((e: ButtonTouchEvent) => onTouchEnd?.(e));
-  const handPress = handleResponse((e: ButtonPressEvent) => onPress?.(e));
+  const handleClick = handleCallback((e: ButtonClickEvent) => onClick?.(e));
+  const handleTouchEnd = handleCallback((e: ButtonTouchEvent) => onTouchEnd?.(e));
+  const handPress = handleCallback((e: ButtonPressEvent) => onPress?.(e));
   const iconElement = <>{icon && renderIcon?.(childrenProps, icon)}</>;
   const mainElement = (
     <>
