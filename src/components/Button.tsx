@@ -1,21 +1,26 @@
-import * as React from 'react';
 import {useId} from 'react';
-import {GestureResponderEvent, TouchableHighlightProps} from 'react-native';
-import {handleEvent} from '@bearei/react-util/lib/event';
+import type {ButtonHTMLAttributes, ReactElement, ReactNode, TouchEvent, Ref} from 'react';
+import type {GestureResponderEvent, TouchableHighlightProps} from 'react-native';
+import handleEvent from '@bearei/react-util/lib/event';
+import type {HandleEvent} from '@bearei/react-util/lib/event';
 
 /**
  * Button props
  */
-export interface ButtonProps
+export interface BaseButtonProps<T>
   extends Omit<
-    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> &
-      TouchableHighlightProps,
-    'onClick' | 'onTouchEnd' | 'onPress'
+    ButtonHTMLAttributes<HTMLButtonElement> & TouchableHighlightProps,
+    'onClick' | 'onTouchEnd' | 'onPress' | 'ref'
   > {
+  /**
+   * Custom button ref
+   */
+  ref?: Ref<T>;
+
   /**
    * Set button icon component
    */
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 
   /**
    * Whether or not to disable the button
@@ -43,27 +48,6 @@ export interface ButtonProps
   shape?: 'square' | 'circle' | 'round';
 
   /**
-   * Render the button icon
-   */
-  renderIcon?: (props: ButtonIconProps, element?: React.ReactNode) => React.ReactNode;
-
-  /**
-   * Render the button main
-   */
-  renderMain?: (
-    props: ButtonMainProps,
-  ) =>
-    | React.ReactElement<TouchableHighlightProps>
-    | React.ReactElement<
-        React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
-      >;
-
-  /**
-   * Render the button container
-   */
-  renderContainer?: (props: ButtonContainerProps, element?: React.ReactNode) => React.ReactNode;
-
-  /**
    * A callback when a button is clicked
    */
   onClick?: (e: ButtonClickEvent) => void;
@@ -79,11 +63,27 @@ export interface ButtonProps
   onPress?: (e: ButtonPressEvent) => void;
 }
 
+export interface ButtonProps<T> extends BaseButtonProps<T> {
+  /**
+   * Render the button icon
+   */
+  renderIcon?: (props: ButtonIconProps<T>, element?: ReactNode) => ReactNode;
+
+  /**
+   * Render the button main
+   */
+  renderMain?: (props: ButtonMainProps<T>) => ReactElement<T>;
+
+  /**
+   * Render the button container
+   */
+  renderContainer?: (props: ButtonContainerProps<T>, element?: ReactNode) => ReactNode;
+}
+
 /**
  * Button children props
  */
-export interface ButtonChildrenProps
-  extends Omit<ButtonProps, 'renderContainer' | 'renderMain' | 'renderIcon' | 'icon' | 'ref'> {
+export interface ButtonChildrenProps<T> extends Omit<BaseButtonProps<T>, 'icon' | 'ref'> {
   /**
    * Unique ID of card component
    */
@@ -92,17 +92,20 @@ export interface ButtonChildrenProps
   /**
    * Used to handle some common default events
    */
-  handleEvent: typeof handleEvent;
+  handleEvent: HandleEvent;
 }
 
 export type ButtonClickEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;
-export type ButtonTouchEvent = React.TouchEvent<HTMLButtonElement>;
+export type ButtonTouchEvent = TouchEvent<HTMLButtonElement>;
 export type ButtonPressEvent = GestureResponderEvent;
-export type ButtonIconProps = ButtonChildrenProps;
-export type ButtonMainProps = Pick<ButtonProps, 'ref'> & ButtonChildrenProps;
-export type ButtonContainerProps = ButtonChildrenProps;
+export type ButtonIconProps<T> = ButtonChildrenProps<T>;
+export interface ButtonMainProps<T> extends ButtonChildrenProps<T> {
+  ref?: Ref<T>;
+}
 
-const Button: React.FC<ButtonProps> = ({
+export type ButtonContainerProps<T> = ButtonChildrenProps<T>;
+
+function Button<T>({
   ref,
   icon,
   loading,
@@ -113,15 +116,15 @@ const Button: React.FC<ButtonProps> = ({
   renderIcon,
   renderMain,
   renderContainer,
-  ...args
-}) => {
+  ...props
+}: ButtonProps<T>) {
   const id = useId();
-  const childrenProps = {...args, loading, disabled, id, handleEvent};
+  const childrenProps = {...props, loading, disabled, id, handleEvent};
 
-  function handleResponse<T>(callback: (e: T) => void) {
+  function handleResponse<E>(callback: (e: E) => void) {
     const response = !disabled && !loading;
 
-    return (e: T) => response && callback(e);
+    return (e: E) => response && callback(e);
   }
 
   const handleClick = handleResponse((e: ButtonClickEvent) => onClick?.(e));
@@ -143,11 +146,9 @@ const Button: React.FC<ButtonProps> = ({
     </>
   );
 
-  const containerElement = (
-    <>{renderContainer ? renderContainer?.(childrenProps, mainElement) : mainElement}</>
-  );
+  const containerElement = <>{renderContainer?.(childrenProps, mainElement) ?? mainElement}</>;
 
   return <>{containerElement}</>;
-};
+}
 
 export default Button;

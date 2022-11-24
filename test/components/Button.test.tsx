@@ -3,16 +3,17 @@ import {render} from '../utils/testUtils';
 import Button from '../../src/components/Button';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
+import {pickHTMLAttributes} from '@bearei/react-util';
 
 describe('test/components/Button.test.ts', () => {
   test('It should be a render button', async () => {
     const {getByDataCy} = render(
-      <Button
+      <Button<HTMLButtonElement>
         text="button"
         icon={<i>"icon"</i>}
         renderIcon={(_props, element) => <i data-cy="icon">{element}</i>}
-        renderMain={({text, handleEvent, loading, ...props}) => (
-          <button {...props} data-cy="button" type="reset">
+        renderMain={({text, ...props}) => (
+          <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
             {text}
           </button>
         )}
@@ -35,10 +36,10 @@ describe('test/components/Button.test.ts', () => {
     let eventType!: string | undefined;
 
     const {getByDataCy} = render(
-      <Button
+      <Button<HTMLButtonElement>
         onClick={e => (eventType = e?.type)}
-        renderMain={({handleEvent, loading, ...props}) => (
-          <button {...props} data-cy="button" type="reset">
+        renderMain={({...props}) => (
+          <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
             "button"
           </button>
         )}
@@ -53,11 +54,11 @@ describe('test/components/Button.test.ts', () => {
     let eventType!: string | undefined;
 
     const {getByDataCy} = render(
-      <Button
+      <Button<HTMLButtonElement>
         onClick={e => (eventType = e?.type)}
         disabled
-        renderMain={({handleEvent, loading, ...props}) => (
-          <button {...props} data-cy="button" type="reset">
+        renderMain={({...props}) => (
+          <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
             "button"
           </button>
         )}
@@ -72,11 +73,11 @@ describe('test/components/Button.test.ts', () => {
     let eventType!: string | undefined;
 
     const {getByDataCy} = render(
-      <Button
+      <Button<HTMLButtonElement>
         onClick={e => (eventType = e?.type)}
         loading
-        renderMain={({handleEvent, loading, ...props}) => (
-          <button {...props} data-cy="button" type="reset">
+        renderMain={({...props}) => (
+          <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
             "button"
           </button>
         )}

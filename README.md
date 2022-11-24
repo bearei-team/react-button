@@ -31,7 +31,7 @@ import ReactDOM from 'react-dom';
 import Button from '@bearei/react-button';
 
 const button = (
-  <Button
+  <Button<HTMLButtonElement>
     text="button"
     icon={<i>"icon"</i>}
     renderIcon={(_props, element) => <i data-cy="icon">{element}</i>}
