@@ -16,6 +16,10 @@ A basic button component that supports react and native react.
 | text | string | ✘ | Button to display text |
 | size | 'small','medium','large' | ✘ | Set the button size |
 | shape | 'square','circle','round' | ✘ | Set the button shape |
+| type | 'primary','secondary','dashed','link','text' | ✘ | Set the button type |
+| htmlType | ButtonHTMLAttributes<HTMLButtonElement>['type'] | ✘ | Set the native type value of the HTML button |
+| danger | boolean | ✘ | Set the danger button |
+| warning | boolean | ✘ | Set the warning button |
 | renderIcon | function(props,element) | ✘ | Render the button icon |
 | renderMain | function(props) | ✘ | Render the button main |
 | renderContainer | function(props,element) | ✘ | Render the button container |

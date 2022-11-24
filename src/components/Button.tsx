@@ -10,7 +10,7 @@ import type {HandleEvent} from '@bearei/react-util/lib/event';
 export interface BaseButtonProps<T>
   extends Omit<
     ButtonHTMLAttributes<HTMLButtonElement> & TouchableHighlightProps,
-    'onClick' | 'onTouchEnd' | 'onPress' | 'ref'
+    'onClick' | 'onTouchEnd' | 'onPress' | 'type' | 'ref'
   > {
   /**
    * Custom button ref
@@ -46,6 +46,26 @@ export interface BaseButtonProps<T>
    * Set the button shape
    */
   shape?: 'square' | 'circle' | 'round';
+
+  /**
+   * Set the button type
+   */
+  type?: 'primary' | 'secondary' | 'dashed' | 'link' | 'text';
+
+  /**
+   * Set the native type value of the HTML button
+   */
+  htmlType?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
+
+  /**
+   * Set the danger button
+   */
+  danger?: boolean;
+
+  /**
+   * Set the warning button
+   */
+  warning?: boolean;
 
   /**
    * A callback when a button is clicked
