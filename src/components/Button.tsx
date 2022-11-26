@@ -5,16 +5,13 @@ import handleEvent from '@bearei/react-util/lib/event';
 import type {HandleEvent} from '@bearei/react-util/lib/event';
 
 /**
- * Button props
+ * Base button props
  */
 export interface BaseButtonProps<T>
   extends Omit<
     ButtonHTMLAttributes<HTMLButtonElement> & TouchableHighlightProps,
-    'onClick' | 'onTouchEnd' | 'onPress' | 'type' | 'ref'
+    'onClick' | 'onTouchEnd' | 'onPress' | 'type'
   > {
-  /**
-   * Custom button ref
-   */
   ref?: Ref<T>;
 
   /**
@@ -70,12 +67,12 @@ export interface BaseButtonProps<T>
   /**
    * A callback when a button is clicked
    */
-  onClick?: (e: ButtonClickEvent) => void;
+  onClick?: (e: ButtonClickEvent<T>) => void;
 
   /**
    * A callback for pressing a button
    */
-  onTouchEnd?: (e: ButtonTouchEvent) => void;
+  onTouchEnd?: (e: ButtonTouchEvent<T>) => void;
 
   /**
    * A callback for pressing a button -- react native
@@ -83,11 +80,14 @@ export interface BaseButtonProps<T>
   onPress?: (e: ButtonPressEvent) => void;
 }
 
+/**
+ * Button props
+ */
 export interface ButtonProps<T> extends BaseButtonProps<T> {
   /**
    * Render the button icon
    */
-  renderIcon?: (props: ButtonIconProps<T>, element?: ReactNode) => ReactNode;
+  renderIcon?: (props: ButtonIconProps<T>) => ReactNode;
 
   /**
    * Render the button main
@@ -97,7 +97,7 @@ export interface ButtonProps<T> extends BaseButtonProps<T> {
   /**
    * Render the button container
    */
-  renderContainer?: (props: ButtonContainerProps<T>, element?: ReactNode) => ReactNode;
+  renderContainer?: (props: ButtonContainerProps<T>) => ReactNode;
 }
 
 /**
@@ -105,9 +105,10 @@ export interface ButtonProps<T> extends BaseButtonProps<T> {
  */
 export interface ButtonChildrenProps<T> extends Omit<BaseButtonProps<T>, 'icon' | 'ref'> {
   /**
-   * Unique ID of card component
+   * The unique ID of the component
    */
   id: string;
+  children?: ReactNode;
 
   /**
    * Used to handle some common default events
@@ -115,17 +116,15 @@ export interface ButtonChildrenProps<T> extends Omit<BaseButtonProps<T>, 'icon' 
   handleEvent: HandleEvent;
 }
 
-export type ButtonClickEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;
-export type ButtonTouchEvent = TouchEvent<HTMLButtonElement>;
+export type ButtonClickEvent<T> = React.MouseEvent<T, MouseEvent>;
+export type ButtonTouchEvent<T> = TouchEvent<T>;
 export type ButtonPressEvent = GestureResponderEvent;
-export type ButtonIconProps<T> = ButtonChildrenProps<T>;
-export interface ButtonMainProps<T> extends ButtonChildrenProps<T> {
-  ref?: Ref<T>;
-}
 
+export type ButtonIconProps<T> = ButtonChildrenProps<T>;
+export type ButtonMainProps<T> = ButtonChildrenProps<T> & Pick<ButtonProps<T>, 'ref'>;
 export type ButtonContainerProps<T> = ButtonChildrenProps<T>;
 
-function Button<T>({
+function Button<T = HTMLButtonElement>({
   ref,
   icon,
   loading,
@@ -147,13 +146,13 @@ function Button<T>({
     return (e: E) => response && callback(e);
   }
 
-  const handleClick = handleCallback((e: ButtonClickEvent) => onClick?.(e));
-  const handleTouchEnd = handleCallback((e: ButtonTouchEvent) => onTouchEnd?.(e));
+  const handleClick = handleCallback((e: ButtonClickEvent<T>) => onClick?.(e));
+  const handleTouchEnd = handleCallback((e: ButtonTouchEvent<T>) => onTouchEnd?.(e));
   const handPress = handleCallback((e: ButtonPressEvent) => onPress?.(e));
-  const iconElement = <>{icon && renderIcon?.(childrenProps, icon)}</>;
-  const mainElement = (
+  const iconNode = icon && renderIcon?.({...childrenProps, children: icon});
+  const main = (
     <>
-      {iconElement}
+      {iconNode}
       {renderMain?.({
         ...childrenProps,
         ref,
@@ -166,9 +165,9 @@ function Button<T>({
     </>
   );
 
-  const containerElement = <>{renderContainer?.(childrenProps, mainElement) ?? mainElement}</>;
+  const container = renderContainer?.({...childrenProps, children: main}) ?? main;
 
-  return <>{containerElement}</>;
+  return <>{container}</>;
 }
 
 export default Button;
