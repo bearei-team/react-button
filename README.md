@@ -24,7 +24,7 @@ A basic button component that supports react and native react.
 | onTouchEnd | `(e: ButtonTouchEvent) => void` | ✘ | A callback for pressing a button |
 | onPress | `(e: ButtonPressEvent) => void` | ✘ | A callback for pressing a button -- react native |
 | renderIcon | `(props: ButtonIconProps) => ReactNode` | ✘ | Render the button icon |
-| renderMain | `(props: ButtonMainProps) => ReactElement` | ✘ | Render the button main |
+| renderMain | `(props: ButtonMainProps) => ReactNode` | ✘ | Render the button main |
 | renderContainer | `(props: ButtonContainerProps) => ReactNode` | ✘ | Render the button container |
 
 ## Use
