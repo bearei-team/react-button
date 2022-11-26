@@ -1,9 +1,9 @@
-import '@testing-library/jest-dom';
-import {render} from '../utils/testUtils';
-import Button from '../../src/components/Button';
-import React from 'react';
-import userEvent from '@testing-library/user-event';
 import {pickHTMLAttributes} from '@bearei/react-util';
+import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import Button from '../../src/components/Button';
+import {render} from '../utils/testUtils';
 
 describe('test/components/Button.test.ts', () => {
   test('It should be a render button', async () => {
