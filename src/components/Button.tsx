@@ -99,7 +99,7 @@ export interface ButtonProps<T> extends BaseButtonProps<T> {
   /**
    * Render the button main
    */
-  renderMain?: (props: ButtonMainProps<T>) => ReactElement<T>;
+  renderMain?: (props: ButtonMainProps<T>) => ReactNode;
 
   /**
    * Render the button container
@@ -131,7 +131,7 @@ export type ButtonIconProps<T> = ButtonChildrenProps<T>;
 export type ButtonMainProps<T> = ButtonChildrenProps<T> & Pick<ButtonProps<T>, 'ref'>;
 export type ButtonContainerProps<T> = ButtonChildrenProps<T>;
 
-function Button<T = HTMLButtonElement>({
+function Button<T>({
   ref,
   icon,
   loading,
