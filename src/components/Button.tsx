@@ -1,6 +1,13 @@
 import type {HandleEvent} from '@bearei/react-util/lib/event';
 import handleEvent from '@bearei/react-util/lib/event';
-import type {ButtonHTMLAttributes, ReactElement, ReactNode, Ref, TouchEvent} from 'react';
+import type {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  ReactElement,
+  ReactNode,
+  Ref,
+  TouchEvent,
+} from 'react';
 import {useId} from 'react';
 import type {GestureResponderEvent, TouchableHighlightProps} from 'react-native';
 
@@ -9,7 +16,7 @@ import type {GestureResponderEvent, TouchableHighlightProps} from 'react-native'
  */
 export interface BaseButtonProps<T>
   extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement> & TouchableHighlightProps,
+    DetailedHTMLProps<ButtonHTMLAttributes<T>, T> & TouchableHighlightProps,
     'onClick' | 'onTouchEnd' | 'onPress' | 'type'
   > {
   ref?: Ref<T>;
