@@ -11,15 +11,15 @@ describe('test/components/Button.test.ts', () => {
       <Button<HTMLButtonElement>
         text="button"
         icon={<i>"icon"</i>}
-        renderIcon={(_props, element) => <i data-cy="icon">{element}</i>}
+        renderIcon={({children}) => <i data-cy="icon">{children}</i>}
         renderMain={({text, ...props}) => (
           <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
             {text}
           </button>
         )}
-        renderContainer={({id}, element) => (
+        renderContainer={({id, children}) => (
           <div data-cy="container" data-id={id} tabIndex={1}>
-            {element}
+            {children}
           </div>
         )}
       />,
