@@ -105,7 +105,7 @@ export interface ButtonProps<T> extends BaseButtonProps<T> {
  */
 export interface ButtonChildrenProps<T> extends Omit<BaseButtonProps<T>, 'icon' | 'ref'> {
   /**
-   * Unique ID of card component
+   * The unique ID of the component
    */
   id: string;
   children?: ReactNode;
