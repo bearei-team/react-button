@@ -1,8 +1,8 @@
-import {useId} from 'react';
-import type {ButtonHTMLAttributes, ReactElement, ReactNode, TouchEvent, Ref} from 'react';
-import type {GestureResponderEvent, TouchableHighlightProps} from 'react-native';
-import handleEvent from '@bearei/react-util/lib/event';
 import type {HandleEvent} from '@bearei/react-util/lib/event';
+import handleEvent from '@bearei/react-util/lib/event';
+import type {ButtonHTMLAttributes, ReactElement, ReactNode, Ref, TouchEvent} from 'react';
+import {useId} from 'react';
+import type {GestureResponderEvent, TouchableHighlightProps} from 'react-native';
 
 /**
  * Base button props
