@@ -103,11 +103,7 @@ export interface ButtonProps<T, E> extends BaseButtonProps<T, E> {
 /**
  * Button children props
  */
-export interface ButtonChildrenProps<T, E>
-  extends Omit<
-    ButtonProps<T, E>,
-    'icon' | 'ref' | 'renderIcon' | 'renderMain' | 'renderContainer'
-  > {
+export interface ButtonChildrenProps<T, E> extends Omit<BaseButtonProps<T, E>, 'icon' | 'ref'> {
   /**
    * The unique ID of the component
    */
@@ -125,7 +121,7 @@ export type ButtonTouchEvent<T> = TouchEvent<T>;
 export type ButtonPressEvent = GestureResponderEvent;
 
 export type ButtonIconProps<T, E> = ButtonChildrenProps<T, E>;
-export type ButtonMainProps<T, E> = ButtonChildrenProps<T, E> & Pick<ButtonProps<T, E>, 'ref'>;
+export type ButtonMainProps<T, E> = ButtonChildrenProps<T, E> & Pick<BaseButtonProps<T, E>, 'ref'>;
 export type ButtonContainerProps<T, E> = ButtonChildrenProps<T, E>;
 
 function Button<T, E = React.MouseEvent<T, MouseEvent>>({
