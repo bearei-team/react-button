@@ -108,7 +108,7 @@ export interface ButtonProps<T, E> extends BaseButtonProps<T, E> {
  */
 export interface ButtonChildrenProps<T, E> extends Omit<BaseButtonProps<T, E>, 'icon' | 'ref'> {
   /**
-   * The unique ID of the component
+   * Component unique ID
    */
   id: string;
   children?: ReactNode;
@@ -127,7 +127,7 @@ export type ButtonIconProps<T, E> = ButtonChildrenProps<T, E>;
 export type ButtonMainProps<T, E> = ButtonChildrenProps<T, E> & Pick<BaseButtonProps<T, E>, 'ref'>;
 export type ButtonContainerProps<T, E> = ButtonChildrenProps<T, E>;
 
-function Button<T, E = React.MouseEvent<T, MouseEvent>>({
+function Button<T, E = ButtonClickEvent<T>>({
   ref,
   icon,
   loading,
