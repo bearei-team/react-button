@@ -1,11 +1,11 @@
 {
   "name": "@bearei/react-button",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "module": "./lib-esm/index.js",
   "author": "bearei <bear_ei@outlook.com>",
-  "description": "A basic button component that supports react and native react.",
+  "description": "Base button components that support React and React native",
   "license": "MIT",
   "readmeFilename": "README.md",
   "keywords": [
@@ -92,5 +92,5 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "packageManager": "yarn@3.2.4"
+  "packageManager": "yarn@3.3.0"
 }

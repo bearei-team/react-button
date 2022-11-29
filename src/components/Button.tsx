@@ -12,6 +12,9 @@ export interface BaseButtonProps<T, E>
     DetailedHTMLProps<ButtonHTMLAttributes<T>, T> & TouchableHighlightProps,
     'onClick' | 'onTouchEnd' | 'onPress' | 'type'
   > {
+  /**
+   * Custom ref
+   */
   ref?: Ref<T>;
 
   /**
@@ -65,17 +68,17 @@ export interface BaseButtonProps<T, E>
   warning?: boolean;
 
   /**
-   * A callback when a button is clicked
+   * Call this function back when you click the button
    */
   onClick?: (e: ButtonClickEvent<T>) => void;
 
   /**
-   * A callback for pressing a button
+   * Call this function after pressing the button
    */
   onTouchEnd?: (e: ButtonTouchEvent<T>) => void;
 
   /**
-   * A callback for pressing a button -- react native
+   * Call this function after pressing the button -- react native
    */
   onPress?: (e: ButtonPressEvent) => void;
 }
