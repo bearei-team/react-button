@@ -1,6 +1,6 @@
 # react-button
 
-A basic button component that supports react and native react.
+Base button components that support React and React native
 
 ## Installation
 
@@ -20,9 +20,9 @@ A basic button component that supports react and native react.
 | htmlType | `ButtonHTMLAttributes<HTMLButtonElement>['type']` | ✘ | Set the native type value of the HTML button |
 | danger | `boolean` | ✘ | Set the danger button |
 | warning | `boolean` | ✘ | Set the warning button |
-| onClick | `(e: ButtonClickEvent) => void` | ✘ | A callback when a button is clicked |
-| onTouchEnd | `(e: ButtonTouchEvent) => void` | ✘ | A callback for pressing a button |
-| onPress | `(e: ButtonPressEvent) => void` | ✘ | A callback for pressing a button -- react native |
+| onClick | `(e: ButtonClickEvent) => void` | ✘ | Call this function back when you click the button |
+| onTouchEnd | `(e: ButtonTouchEvent) => void` | ✘ | Call this function after pressing the button |
+| onPress | `(e: ButtonPressEvent) => void` | ✘ | Call this function after pressing the button -- react native |
 | renderIcon | `(props: ButtonIconProps) => ReactNode` | ✘ | Render the button icon |
 | renderMain | `(props: ButtonMainProps) => ReactNode` | ✘ | Render the button main |
 | renderContainer | `(props: ButtonContainerProps) => ReactNode` | ✘ | Render the button container |
