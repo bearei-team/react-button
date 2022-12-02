@@ -1,5 +1,5 @@
 import {bindEvents, handleDefaultEvent} from '@bearei/react-util/lib/event';
-import {useId, ButtonHTMLAttributes, DetailedHTMLProps, ReactNode, Ref, TouchEvent} from 'react';
+import {ButtonHTMLAttributes, DetailedHTMLProps, ReactNode, Ref, TouchEvent, useId} from 'react';
 import type {GestureResponderEvent, TouchableHighlightProps} from 'react-native';
 
 /**
