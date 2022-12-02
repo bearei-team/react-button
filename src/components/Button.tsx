@@ -1,5 +1,5 @@
 import {bindEvents, handleDefaultEvent} from '@bearei/react-util/lib/event';
-import {useId, ButtonHTMLAttributes, DetailedHTMLProps, ReactNode, Ref, TouchEvent} from 'react';
+import {ButtonHTMLAttributes, DetailedHTMLProps, ReactNode, Ref, TouchEvent, useId} from 'react';
 import type {GestureResponderEvent, TouchableHighlightProps} from 'react-native';
 
 /**
@@ -93,7 +93,7 @@ export interface ButtonProps<T> extends BaseButtonProps<T> {
   /**
    * Render the button main
    */
-  renderMain?: (props: ButtonMainProps) => ReactNode;
+  renderMain?: (props: ButtonMainProps<T>) => ReactNode;
 
   /**
    * Render the button container
@@ -113,7 +113,7 @@ export interface ButtonChildrenProps extends Omit<BaseButtonProps, 'ref'> {
 }
 
 export type ButtonIconProps = ButtonChildrenProps;
-export type ButtonMainProps = ButtonChildrenProps & Pick<BaseButtonProps, 'ref'>;
+export type ButtonMainProps<T> = ButtonChildrenProps & Pick<BaseButtonProps<T>, 'ref'>;
 export type ButtonContainerProps = ButtonChildrenProps;
 
 const Button = <T extends HTMLElement>(props: ButtonProps<T>) => {
