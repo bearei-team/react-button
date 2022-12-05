@@ -134,13 +134,14 @@ const Button = <T extends HTMLElement>(props: ButtonProps<T>) => {
   const id = useId();
   const events = Object.keys(props).filter(key => key.startsWith('on'));
   const childrenProps = {...args, loading, disabled, id};
+
+  const handleResponse = <E,>(e: E, callback?: (e: E) => void) => {
+    const response = !loading && !disabled;
+
+    response && callback?.(e);
+  };
+
   const handleCallback = (key: string) => {
-    const handleResponse = <E,>(e: E, callback?: (e: E) => void) => {
-      const response = !loading && !disabled;
-
-      response && callback?.(e);
-    };
-
     const event = {
       onClick: handleDefaultEvent((e: React.MouseEvent<T, MouseEvent>) =>
         handleResponse(e, onClick),
