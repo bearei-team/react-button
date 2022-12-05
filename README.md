@@ -20,9 +20,9 @@ Base button components that support React and React native
 | htmlType | `ButtonHTMLAttributes<HTMLButtonElement>['type']` | ✘ | Set the native type value of the HTML button |
 | danger | `boolean` | ✘ | Set the danger button |
 | warning | `boolean` | ✘ | Set the warning button |
-| onClick | `(e: ButtonClickEvent) => void` | ✘ | Call this function back when you click the button |
-| onTouchEnd | `(e: ButtonTouchEvent) => void` | ✘ | Call this function after pressing the button |
-| onPress | `(e: ButtonPressEvent) => void` | ✘ | Call this function after pressing the button -- react native |
+| onClick | `(e: MouseEvent) => void` | ✘ | Call this function back when you click the button |
+| onTouchEnd | `(e: TouchEvent) => void` | ✘ | Call this function after pressing the button |
+| onPress | `(e: GestureResponderEvent) => void` | ✘ | Call this function after pressing the button -- react native |
 | renderIcon | `(props: ButtonIconProps) => ReactNode` | ✘ | Render the button icon |
 | renderMain | `(props: ButtonMainProps) => ReactNode` | ✘ | Render the button main |
 | renderContainer | `(props: ButtonContainerProps) => ReactNode` | ✘ | Render the button container |

@@ -43,6 +43,7 @@ describe('test/components/Button.test.ts', () => {
             "button"
           </button>
         )}
+        renderContainer={({children}) => <div>{children}</div>}
       />,
     );
 
@@ -62,6 +63,7 @@ describe('test/components/Button.test.ts', () => {
             "button"
           </button>
         )}
+        renderContainer={({children}) => <div>{children}</div>}
       />,
     );
 
@@ -81,6 +83,7 @@ describe('test/components/Button.test.ts', () => {
             "button"
           </button>
         )}
+        renderContainer={({children}) => <div>{children}</div>}
       />,
     );
 

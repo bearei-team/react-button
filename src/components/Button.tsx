@@ -134,12 +134,20 @@ const Button = <T extends HTMLElement>(props: ButtonProps<T>) => {
   const id = useId();
   const events = Object.keys(props).filter(key => key.startsWith('on'));
   const childrenProps = {...args, loading, disabled, id};
+
+  const handleResponse = <E,>(e: E, callback?: (e: E) => void) => {
+    const response = !loading && !disabled;
+
+    response && callback?.(e);
+  };
+
   const handleCallback = (key: string) => {
-    const response = !disabled && !loading;
     const event = {
-      onClick: handleDefaultEvent((e: React.MouseEvent<T, MouseEvent>) => response && onClick?.(e)),
-      onTouchEnd: handleDefaultEvent((e: TouchEvent<T>) => response && onTouchEnd?.(e)),
-      onPress: handleDefaultEvent((e: GestureResponderEvent) => response && onPress?.(e)),
+      onClick: handleDefaultEvent((e: React.MouseEvent<T, MouseEvent>) =>
+        handleResponse(e, onClick),
+      ),
+      onTouchEnd: handleDefaultEvent((e: TouchEvent<T>) => handleResponse(e, onTouchEnd)),
+      onPress: handleDefaultEvent((e: GestureResponderEvent) => handleResponse(e, onPress)),
     };
 
     return event[key as keyof typeof event];
@@ -161,7 +169,7 @@ const Button = <T extends HTMLElement>(props: ButtonProps<T>) => {
     </>
   );
 
-  const container = renderContainer?.({...childrenProps, children: content}) ?? content;
+  const container = renderContainer?.({...childrenProps, children: content});
 
   return <>{container}</>;
 };
