@@ -8,7 +8,7 @@ import {render} from '../utils/testUtils';
 describe('test/components/Button.test.ts', () => {
   test('It should be a render button', async () => {
     const {getByDataCy} = render(
-      <Button<HTMLButtonElement>
+      <Button
         text="button"
         icon={<i>"icon"</i>}
         renderIcon={({children}) => <i data-cy="icon">{children}</i>}
@@ -36,7 +36,7 @@ describe('test/components/Button.test.ts', () => {
     let eventType!: string | undefined;
 
     const {getByDataCy} = render(
-      <Button<HTMLButtonElement>
+      <Button
         onClick={e => (eventType = e?.type)}
         renderMain={({...props}) => (
           <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
@@ -55,7 +55,7 @@ describe('test/components/Button.test.ts', () => {
     let eventType!: string | undefined;
 
     const {getByDataCy} = render(
-      <Button<HTMLButtonElement>
+      <Button
         onClick={e => (eventType = e?.type)}
         disabled
         renderMain={({...props}) => (
@@ -75,7 +75,7 @@ describe('test/components/Button.test.ts', () => {
     let eventType!: string | undefined;
 
     const {getByDataCy} = render(
-      <Button<HTMLButtonElement>
+      <Button
         onClick={e => (eventType = e?.type)}
         loading
         renderMain={({...props}) => (

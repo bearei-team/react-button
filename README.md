@@ -10,19 +10,19 @@ Base button components that support React and React native
 
 | Name | Type | Required | Description |
 | :-- | --: | --: | :-- |
-| icon | `ReactNode` | ✘ | Set button icon component |
+| icon | `ReactNode` | ✘ | Button item icon |
 | disabled | `boolean` | ✘ | Whether or not to disable the button |
 | loading | `boolean` | ✘ | Whether the button is loading |
 | text | `string` | ✘ | Button to display text |
-| size | `small` `medium` `large` | ✘ | Set the button size |
-| shape | `square` `circle` `round` | ✘ | Set the button shape |
-| type | `primary` `secondary` `dashed` `link` `text` | ✘ | Set the button type |
-| htmlType | `ButtonHTMLAttributes<HTMLButtonElement>['type']` | ✘ | Set the native type value of the HTML button |
-| danger | `boolean` | ✘ | Set the danger button |
-| warning | `boolean` | ✘ | Set the warning button |
-| onClick | `(e: MouseEvent) => void` | ✘ | Call this function back when you click the button |
-| onTouchEnd | `(e: TouchEvent) => void` | ✘ | Call this function after pressing the button |
-| onPress | `(e: GestureResponderEvent) => void` | ✘ | Call this function after pressing the button -- react native |
+| size | `small` `medium` `large` | ✘ | Button size |
+| shape | `square` `circle` `round` | ✘ | Button shape |
+| type | `primary` `secondary` `dashed` `link` `text` | ✘ | Button type |
+| htmlType | `ButtonHTMLAttributes<HTMLButtonElement>['type']` | ✘ | HTML native button type |
+| danger | `boolean` | ✘ | Danger button |
+| warning | `boolean` | ✘ | Warning button |
+| onClick | `(e: React.MouseEvent) => void` | ✘ | This function is called when button is clicked |
+| onTouchEnd | `(e: React.TouchEvent) => void` | ✘ | This function is called when the button is pressed |
+| onPress | `(e: GestureResponderEvent) => void` | ✘ | This function is called when the button is pressed -- react native |
 | renderIcon | `(props: ButtonIconProps) => ReactNode` | ✘ | Render the button icon |
 | renderMain | `(props: ButtonMainProps) => ReactNode` | ✘ | Render the button main |
 | renderContainer | `(props: ButtonContainerProps) => ReactNode` | ✘ | Render the button container |
@@ -35,17 +35,17 @@ import ReactDOM from 'react-dom';
 import Button from '@bearei/react-button';
 
 const button = (
-  <Button<HTMLButtonElement>
+  <Button
     text="button"
     icon={<i>"icon"</i>}
-    renderIcon={({children}) => <i data-cy="icon">{children}</i>}
+    renderIcon={({children}) => <i>{children}</i>}
     renderMain={({text, ...props}) => (
-      <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
+      <button {...props} type="reset">
         {text}
       </button>
     )}
     renderContainer={({id, children}) => (
-      <div data-cy="container" data-id={id} tabIndex={1}>
+      <div data-id={id} tabIndex={1}>
         {children}
       </div>
     )}

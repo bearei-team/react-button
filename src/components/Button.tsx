@@ -16,12 +16,12 @@ export interface BaseButtonProps<T = HTMLElement>
   ref?: Ref<T>;
 
   /**
-   * Set button icon component
+   * Button item icon
    */
   icon?: ReactNode;
 
   /**
-   * Whether or not to disable the button
+   *  Whether or not to disable the button
    */
   disabled?: boolean;
 
@@ -36,47 +36,47 @@ export interface BaseButtonProps<T = HTMLElement>
   text?: string;
 
   /**
-   * Set the button size
+   * Button size
    */
   size?: 'small' | 'medium' | 'large';
 
   /**
-   * Set the button shape
+   * Button shape
    */
   shape?: 'square' | 'circle' | 'round';
 
   /**
-   * Set the button type
+   * Button type
    */
   type?: 'primary' | 'secondary' | 'dashed' | 'link' | 'text';
 
   /**
-   * Set the native type value of the HTML button
+   * HTML native button type
    */
   htmlType?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 
   /**
-   * Set the danger button
+   * Danger button
    */
   danger?: boolean;
 
   /**
-   * Set the warning button
+   * Warning button
    */
   warning?: boolean;
 
   /**
-   * Call this function back when you click the button
+   * This function is called when button is clicked
    */
   onClick?: (e: React.MouseEvent<T, MouseEvent>) => void;
 
   /**
-   * Call this function after pressing the button
+   * This function is called when the button is pressed
    */
   onTouchEnd?: (e: TouchEvent<T>) => void;
 
   /**
-   * Call this function after pressing the button -- react native
+   * This function is called when the button is pressed -- react native
    */
   onPress?: (e: GestureResponderEvent) => void;
 }
@@ -122,12 +122,12 @@ const Button = <T extends HTMLElement>(props: ButtonProps<T>) => {
     icon,
     loading,
     disabled,
-    renderIcon,
-    renderMain,
-    renderContainer,
     onClick,
     onPress,
     onTouchEnd,
+    renderIcon,
+    renderMain,
+    renderContainer,
     ...args
   } = props;
 
@@ -136,9 +136,9 @@ const Button = <T extends HTMLElement>(props: ButtonProps<T>) => {
   const childrenProps = {...args, loading, disabled, id};
 
   const handleResponse = <E,>(e: E, callback?: (e: E) => void) => {
-    const response = !loading && !disabled;
+    const isResponse = !loading && !disabled;
 
-    response && callback?.(e);
+    isResponse && callback?.(e);
   };
 
   const handleCallback = (key: string) => {
