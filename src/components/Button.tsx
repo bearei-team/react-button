@@ -5,7 +5,7 @@ import type {GestureResponderEvent, TouchableHighlightProps} from 'react-native'
 /**
  * Base button props
  */
-export interface BaseButtonProps<T = HTMLElement>
+export interface BaseButtonProps<T = HTMLButtonElement>
   extends Omit<
     DetailedHTMLProps<ButtonHTMLAttributes<T>, T> & TouchableHighlightProps,
     'onClick' | 'onTouchEnd' | 'onPress' | 'type'
@@ -93,12 +93,12 @@ export interface ButtonProps<T> extends BaseButtonProps<T> {
   /**
    * Render the button main
    */
-  renderMain?: (props: ButtonMainProps<T>) => ReactNode;
+  renderMain: (props: ButtonMainProps<T>) => ReactNode;
 
   /**
    * Render the button container
    */
-  renderContainer?: (props: ButtonContainerProps) => ReactNode;
+  renderContainer: (props: ButtonContainerProps) => ReactNode;
 }
 
 /**
@@ -116,7 +116,7 @@ export type ButtonIconProps = ButtonChildrenProps;
 export type ButtonMainProps<T> = ButtonChildrenProps & Pick<BaseButtonProps<T>, 'ref'>;
 export type ButtonContainerProps = ButtonChildrenProps;
 
-const Button = <T extends HTMLElement>(props: ButtonProps<T>) => {
+const Button = <T extends HTMLButtonElement>(props: ButtonProps<T>) => {
   const {
     ref,
     icon,
@@ -134,7 +134,6 @@ const Button = <T extends HTMLElement>(props: ButtonProps<T>) => {
   const id = useId();
   const events = Object.keys(props).filter(key => key.startsWith('on'));
   const childrenProps = {...args, loading, disabled, id};
-
   const handleResponse = <E,>(e: E, callback?: (e: E) => void) => {
     const isResponse = !loading && !disabled;
 
@@ -154,22 +153,16 @@ const Button = <T extends HTMLElement>(props: ButtonProps<T>) => {
   };
 
   const iconNode = icon && renderIcon?.({...childrenProps, children: icon});
-  const main = renderMain?.({
+  const main = renderMain({
     ...childrenProps,
     ref,
     loading,
     disabled,
     ...bindEvents(events, handleCallback),
+    icon: iconNode,
   });
 
-  const content = (
-    <>
-      {iconNode}
-      {main}
-    </>
-  );
-
-  const container = renderContainer?.({...childrenProps, children: content});
+  const container = renderContainer({...childrenProps, children: main});
 
   return <>{container}</>;
 };

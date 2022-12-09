@@ -12,10 +12,13 @@ describe('test/components/Button.test.ts', () => {
         text="button"
         icon={<i>"icon"</i>}
         renderIcon={({children}) => <i data-cy="icon">{children}</i>}
-        renderMain={({text, ...props}) => (
-          <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
-            {text}
-          </button>
+        renderMain={({text, icon, ...props}) => (
+          <>
+            {icon}
+            <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
+              {text}
+            </button>
+          </>
         )}
         renderContainer={({id, children}) => (
           <div data-cy="container" data-id={id} tabIndex={1}>
@@ -52,6 +55,7 @@ describe('test/components/Button.test.ts', () => {
   });
 
   test('It should be a disabled button', async () => {
+    const user = userEvent.setup();
     let eventType!: string | undefined;
 
     const {getByDataCy} = render(
@@ -67,11 +71,12 @@ describe('test/components/Button.test.ts', () => {
       />,
     );
 
-    getByDataCy('button');
+    await user.click(getByDataCy('button'));
     expect(eventType).toEqual(undefined);
   });
 
   test('It should be the button loading', async () => {
+    const user = userEvent.setup();
     let eventType!: string | undefined;
 
     const {getByDataCy} = render(
@@ -87,7 +92,7 @@ describe('test/components/Button.test.ts', () => {
       />,
     );
 
-    getByDataCy('button');
+    await user.click(getByDataCy('button'));
     expect(eventType).toEqual(undefined);
   });
 });
