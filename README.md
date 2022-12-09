@@ -10,7 +10,7 @@ Base button components that support React and React native
 
 | Name | Type | Required | Description |
 | :-- | --: | --: | :-- |
-| icon | `ReactNode` | ✘ | Button item icon |
+| icon | `ReactNode` | ✘ | Button icon |
 | disabled | `boolean` | ✘ | Whether or not to disable the button |
 | loading | `boolean` | ✘ | Whether the button is loading |
 | text | `string` | ✘ | Button to display text |
@@ -24,8 +24,8 @@ Base button components that support React and React native
 | onTouchEnd | `(e: React.TouchEvent) => void` | ✘ | This function is called when the button is pressed |
 | onPress | `(e: GestureResponderEvent) => void` | ✘ | This function is called when the button is pressed -- react native |
 | renderIcon | `(props: ButtonIconProps) => ReactNode` | ✘ | Render the button icon |
-| renderMain | `(props: ButtonMainProps) => ReactNode` | ✘ | Render the button main |
-| renderContainer | `(props: ButtonContainerProps) => ReactNode` | ✘ | Render the button container |
+| renderMain | `(props: ButtonMainProps) => ReactNode` | ✔ | Render the button main |
+| renderContainer | `(props: ButtonContainerProps) => ReactNode` | ✔ | Render the button container |
 
 ## Use
 
