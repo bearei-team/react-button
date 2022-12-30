@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import Button from '../../src/components/Button';
-import { render } from '../utils/testUtils';
+import { render } from '../utils/test_utils';
 
 describe('test/components/Button.test.ts', () => {
   test('It should be a render button', async () => {
