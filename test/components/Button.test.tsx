@@ -1,26 +1,30 @@
-import {pickHTMLAttributes} from '@bearei/react-util';
+import { pickHTMLAttributes } from '@bearei/react-util';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import Button from '../../src/components/Button';
-import {render} from '../utils/testUtils';
+import { render } from '../utils/testUtils';
 
 describe('test/components/Button.test.ts', () => {
   test('It should be a render button', async () => {
-    const {getByDataCy} = render(
+    const { getByDataCy } = render(
       <Button
         text="button"
         icon={<i>"icon"</i>}
-        renderIcon={({children}) => <i data-cy="icon">{children}</i>}
-        renderMain={({text, icon, ...props}) => (
+        renderIcon={({ children }) => <i data-cy="icon">{children}</i>}
+        renderMain={({ text, icon, ...props }) => (
           <>
             {icon}
-            <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
+            <button
+              {...pickHTMLAttributes(props)}
+              data-cy="button"
+              type="reset"
+            >
               {text}
             </button>
           </>
         )}
-        renderContainer={({id, children}) => (
+        renderContainer={({ id, children }) => (
           <div data-cy="container" data-id={id} tabIndex={1}>
             {children}
           </div>
@@ -38,15 +42,15 @@ describe('test/components/Button.test.ts', () => {
     const user = userEvent.setup();
     let eventType!: string | undefined;
 
-    const {getByDataCy} = render(
+    const { getByDataCy } = render(
       <Button
         onClick={e => (eventType = e?.type)}
-        renderMain={({...props}) => (
+        renderMain={({ ...props }) => (
           <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
             "button"
           </button>
         )}
-        renderContainer={({children}) => <div>{children}</div>}
+        renderContainer={({ children }) => <div>{children}</div>}
       />,
     );
 
@@ -58,16 +62,16 @@ describe('test/components/Button.test.ts', () => {
     const user = userEvent.setup();
     let eventType!: string | undefined;
 
-    const {getByDataCy} = render(
+    const { getByDataCy } = render(
       <Button
         onClick={e => (eventType = e?.type)}
         disabled
-        renderMain={({...props}) => (
+        renderMain={({ ...props }) => (
           <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
             "button"
           </button>
         )}
-        renderContainer={({children}) => <div>{children}</div>}
+        renderContainer={({ children }) => <div>{children}</div>}
       />,
     );
 
@@ -79,16 +83,16 @@ describe('test/components/Button.test.ts', () => {
     const user = userEvent.setup();
     let eventType!: string | undefined;
 
-    const {getByDataCy} = render(
+    const { getByDataCy } = render(
       <Button
         onClick={e => (eventType = e?.type)}
         loading
-        renderMain={({...props}) => (
+        renderMain={({ ...props }) => (
           <button {...pickHTMLAttributes(props)} data-cy="button" type="reset">
             "button"
           </button>
         )}
-        renderContainer={({children}) => <div>{children}</div>}
+        renderContainer={({ children }) => <div>{children}</div>}
       />,
     );
 
