@@ -38,13 +38,13 @@ const button = (
   <Button
     text="button"
     icon={<i>"icon"</i>}
-    renderIcon={({children}) => <i>{children}</i>}
-    renderMain={({text, ...props}) => (
+    renderIcon={({ children }) => <i>{children}</i>}
+    renderMain={({ text, ...props }) => (
       <button {...props} type="reset">
         {text}
       </button>
     )}
-    renderContainer={({id, children}) => (
+    renderContainer={({ id, children }) => (
       <div data-id={id} tabIndex={1}>
         {children}
       </div>
