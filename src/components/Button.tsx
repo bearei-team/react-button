@@ -5,6 +5,7 @@ import {
 import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
+  MouseEvent,
   ReactNode,
   Ref,
   TouchEvent,
@@ -81,7 +82,7 @@ export interface BaseButtonProps<T>
   /**
    * This function is called when button is clicked
    */
-  onClick?: (e: React.MouseEvent<T, MouseEvent>) => void;
+  onClick?: (e: MouseEvent<T>) => void;
 
   /**
    * This function is called when the button is pressed
@@ -131,6 +132,7 @@ export type ButtonMainProps<T> = ButtonChildrenProps<T> &
   Pick<BaseButtonProps<T>, 'ref'>;
 
 export type ButtonContainerProps<T> = ButtonChildrenProps<T>;
+export type EventType = 'onClick' | 'onPress' | 'onTouchEnd';
 
 const Button = <T extends HTMLButtonElement = HTMLButtonElement>(
   props: ButtonProps<T>,
@@ -150,7 +152,11 @@ const Button = <T extends HTMLButtonElement = HTMLButtonElement>(
   } = props;
 
   const id = useId();
-  const events = Object.keys(props).filter(key => key.startsWith('on'));
+  const bindEvenNames = ['onClick', 'onPress', 'onTouchEnd'];
+  const eventNames = Object.keys(props).filter(key =>
+    bindEvenNames.includes(key),
+  ) as EventType[];
+
   const childrenProps = { ...args, loading, disabled, id };
   const handleResponse = <E,>(e: E, callback?: (e: E) => void) => {
     const isResponse = !loading && !disabled;
@@ -158,9 +164,9 @@ const Button = <T extends HTMLButtonElement = HTMLButtonElement>(
     isResponse && callback?.(e);
   };
 
-  const handleCallback = (key: string) => {
-    const event = {
-      onClick: handleDefaultEvent((e: React.MouseEvent<T, MouseEvent>) =>
+  const handleCallback = (event: EventType) => {
+    const eventFunctions = {
+      onClick: handleDefaultEvent((e: MouseEvent<T>) =>
         handleResponse(e, onClick),
       ),
       onTouchEnd: handleDefaultEvent((e: TouchEvent<T>) =>
@@ -171,7 +177,7 @@ const Button = <T extends HTMLButtonElement = HTMLButtonElement>(
       ),
     };
 
-    return event[key as keyof typeof event];
+    return eventFunctions[event];
   };
 
   const iconNode = icon && renderIcon?.({ ...childrenProps, children: icon });
@@ -181,7 +187,11 @@ const Button = <T extends HTMLButtonElement = HTMLButtonElement>(
     loading,
     disabled,
     icon: iconNode,
-    ...bindEvents(events, handleCallback),
+    ...(bindEvents(eventNames, handleCallback) as {
+      onClick?: (e: MouseEvent<T>) => void;
+      onTouchEnd?: (e: TouchEvent<T>) => void;
+      onPress?: (e: GestureResponderEvent) => void;
+    }),
   });
 
   const container = renderContainer({ ...childrenProps, children: main });

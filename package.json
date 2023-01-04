@@ -1,6 +1,6 @@
 {
   "name": "@bearei/react-button",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "main": "./lib/commonjs/index",
   "module": "./lib/module/index",
   "types": "./lib/commonjs/index.d.ts",
@@ -22,7 +22,7 @@
     "url": "https://github.com/bearei-team/react-button/issues"
   },
   "dependencies": {
-    "@bearei/react-util": "^0.0.28",
+    "@bearei/react-util": "^0.0.29",
     "react": "^18.2.0"
   },
   "devDependencies": {
