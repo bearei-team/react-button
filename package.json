@@ -1,6 +1,6 @@
 {
   "name": "@bearei/react-button",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "main": "./lib/commonjs/index",
   "module": "./lib/module/index",
   "types": "./lib/commonjs/index.d.ts",
