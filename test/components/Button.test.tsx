@@ -9,10 +9,10 @@ describe('test/components/Button.test.ts', () => {
   test('It should be a render button', async () => {
     const { getByDataCy } = render(
       <Button
-        text="button"
+        content="button"
         icon={<i>"icon"</i>}
         renderIcon={({ children }) => <i data-cy="icon">{children}</i>}
-        renderMain={({ text, icon, ...props }) => (
+        renderMain={({ content, icon, ...props }) => (
           <>
             {icon}
             <button
@@ -20,7 +20,7 @@ describe('test/components/Button.test.ts', () => {
               data-cy="button"
               type="reset"
             >
-              {text}
+              {content}
             </button>
           </>
         )}

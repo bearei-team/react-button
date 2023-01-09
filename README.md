@@ -13,8 +13,10 @@ Base button components that support React and React native
 | icon | `ReactNode` | ✘ | Button icon |
 | disabled | `boolean` | ✘ | Whether or not to disable the button |
 | loading | `boolean` | ✘ | Whether the button is loading |
-| text | `string` | ✘ | Button to display text |
+| content | `ReactNode` | ✘ | Button to display content |
 | size | `small` `medium` `large` | ✘ | Button size |
+| color | `string` | ✘ | Button color |
+| border | `boolean` | ✘ | Whether or not to display the button border |
 | shape | `square` `circle` `round` | ✘ | Button shape |
 | type | `primary` `secondary` `dashed` `link` `text` | ✘ | Button type |
 | htmlType | `ButtonHTMLAttributes<HTMLButtonElement>['type']` | ✘ | HTML native button type |

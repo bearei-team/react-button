@@ -45,9 +45,9 @@ export interface BaseButtonProps<T>
   loading?: boolean;
 
   /**
-   * Button to display text
+   * Button to display content
    */
-  text?: string;
+  content?: ReactNode;
 
   /**
    * Button size
@@ -63,6 +63,16 @@ export interface BaseButtonProps<T>
    * Button type
    */
   type?: 'primary' | 'secondary' | 'dashed' | 'link' | 'text';
+
+  /**
+   * Button color
+   */
+  color?: string;
+
+  /**
+   * Whether or not to display the button border
+   */
+  border?: boolean;
 
   /**
    * HTML native button type
