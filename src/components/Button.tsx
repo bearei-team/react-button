@@ -62,7 +62,7 @@ export interface BaseButtonProps<T>
   /**
    * Button type
    */
-  type?: 'primary' | 'secondary' | 'dashed' | 'link' | 'text';
+  type?: 'default' | 'primary' | 'secondary' | 'dashed' | 'link' | 'text';
 
   /**
    * Button color

@@ -18,7 +18,7 @@ Base button components that support React and React native
 | color | `string` | ✘ | Button color |
 | border | `boolean` | ✘ | Whether or not to display the button border |
 | shape | `square` `circle` `round` | ✘ | Button shape |
-| type | `primary` `secondary` `dashed` `link` `text` | ✘ | Button type |
+| type | `default` `primary` `secondary` `dashed` `link` `text` | ✘ | Button type |
 | htmlType | `ButtonHTMLAttributes<HTMLButtonElement>['type']` | ✘ | HTML native button type |
 | danger | `boolean` | ✘ | Danger button |
 | warning | `boolean` | ✘ | Warning button |
@@ -38,12 +38,12 @@ import Button from '@bearei/react-button';
 
 const button = (
   <Button
-    text="button"
+    content="button"
     icon={<i>"icon"</i>}
     renderIcon={({ children }) => <i>{children}</i>}
-    renderMain={({ text, ...props }) => (
+    renderMain={({ content, ...props }) => (
       <button {...props} type="reset">
-        {text}
+        {content}
       </button>
     )}
     renderContainer={({ id, children }) => (
