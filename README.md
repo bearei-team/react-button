@@ -18,7 +18,7 @@ Base button components that support React and React native
 | color | `string` | ✘ | Button color |
 | border | `boolean` | ✘ | Whether or not to display the button border |
 | shape | `square` `circle` `round` | ✘ | Button shape |
-| type | `default` `primary` `secondary` `dashed` `link` `text` | ✘ | Button type |
+| type | `default` `primary` `secondary` `dashed` `ghost` `link` `text` | ✘ | Button type |
 | htmlType | `ButtonHTMLAttributes<HTMLButtonElement>['type']` | ✘ | HTML native button type |
 | danger | `boolean` | ✘ | Danger button |
 | warning | `boolean` | ✘ | Warning button |
